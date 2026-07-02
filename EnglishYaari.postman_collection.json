@@ -1,0 +1,175 @@
+{
+  "info": {
+    "name": "EnglishYaari API",
+    "_postman_id": "englishyaari-assess-collection",
+    "description": "Postman collection for the EnglishYaari teacher-session booking platform API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Teachers",
+      "item": [
+        {
+          "name": "Create Teacher",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teachers",
+              "host": ["{{baseUrl}}"],
+              "path": ["teachers"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"specialization\": \"Grammar\",\n  \"experience\": 5\n}"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"John Smith\",\n  \"email\": \"john@example.com\",\n  \"phone\": \"9876543210\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Sessions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/:id/sessions",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", ":id", "sessions"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "<userId>",
+                  "description": "MongoDB ObjectId of the user"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sessions",
+      "item": [
+        {
+          "name": "Create Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sessions",
+              "host": ["{{baseUrl}}"],
+              "path": ["sessions"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"teacherId\": \"<teacherId>\",\n  \"startTime\": \"2024-08-01T10:00:00.000Z\",\n  \"endTime\": \"2024-08-01T11:00:00.000Z\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Available Sessions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/sessions/available?dateTimestamp=1722470400000",
+              "host": ["{{baseUrl}}"],
+              "path": ["sessions", "available"],
+              "query": [
+                {
+                  "key": "dateTimestamp",
+                  "value": "1722470400000",
+                  "description": "Unix timestamp (ms or s) for the target date"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Book Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sessions/:id/book",
+              "host": ["{{baseUrl}}"],
+              "path": ["sessions", ":id", "book"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "<sessionId>",
+                  "description": "MongoDB ObjectId of the session"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<userId>\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Session Complete",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/sessions/:id/complete",
+              "host": ["{{baseUrl}}"],
+              "path": ["sessions", ":id", "complete"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "<sessionId>",
+                  "description": "MongoDB ObjectId of the session"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
